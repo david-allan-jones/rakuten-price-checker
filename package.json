@@ -9,10 +9,9 @@
   "author": "david.jones",
   "license": "ISC",
   "dependencies": {
-    "axiom": "^0.1.6",
+    "axios": "^0.24.0",
     "csv-parse": "^4.16.3",
     "fast-csv": "^4.3.6",
-    "index.js": "0.0.3",
     "jsdom": "^18.1.0"
   }
 }

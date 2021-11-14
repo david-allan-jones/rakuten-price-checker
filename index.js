@@ -26,13 +26,13 @@ const scrapeLowestPriceFromRakuten = async (item) => {
     let lowest = { total: Number.MAX_SAFE_INTEGER }
     for (let i = 0; i < nodes.length; i++) {
         const currentNode = nodes[i]
-        console.log(currentNode.innerHTML)
         try {
             const priceNode = currentNode.querySelector('span.important')
             const price = parseInt(priceNode.innerHTML.replace('<small>円</small>', '').replace(',', ''))
 
             // TODO: Deal with scenario where snippingNode is null (shipping cost listed as 未定)
             const shippingNode = currentNode.querySelector('span.with-help span')
+            if (shippingNode === null) continue;
             const shippingCost = (shippingNode.innerHTML === '送料無料')
                 ? 0
                 : parseInt(shippingNode.innerHTML.replace('+送料', '').replace('円', '').replace(',', ''))
@@ -41,11 +41,7 @@ const scrapeLowestPriceFromRakuten = async (item) => {
             if (totalPrice < lowest.total) {
                 lowest = { total: totalPrice, price, shippingCost }
             }
-
-            // TODO: Determine if we need to account for points (it is factored into 実質価格)
         } catch (e) {
-            console.log(currentNode.innerHTML)
-            console.log(e)
             return { total: '~', price: '~', shippingCost: '~' }
         }
     }
@@ -58,7 +54,6 @@ const fetchPrices = async (itemList) => {
     for (let i = 0; i < itemList.length; i++) {
         let item = itemList[i]
         const lowest = await scrapeLowestPriceFromRakuten(item)
-        console.log(lowest)
         try {
             priceList.push([
                 item,
@@ -88,5 +83,5 @@ const writeToOutputFile = (priceList) => {
     })
 }
 loadInput()
-    .then((itemList) => fetchPrices(['4962772017128']))
+    .then((itemList) => fetchPrices(itemList))
     .then((priceList) => writeToOutputFile(priceList))

@@ -30,7 +30,6 @@ const scrapeLowestPriceFromRakuten = async (item) => {
             const priceNode = currentNode.querySelector('span.important')
             const price = parseInt(priceNode.innerHTML.replace('<small>円</small>', '').replace(',', ''))
 
-            // TODO: Deal with scenario where snippingNode is null (shipping cost listed as 未定)
             const shippingNode = currentNode.querySelector('span.with-help span')
             if (shippingNode === null) continue;
             const shippingCost = (shippingNode.innerHTML === '送料無料')

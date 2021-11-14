@@ -1,0 +1,18 @@
+{
+  "name": "rakuten-price-checker",
+  "version": "0.1.0",
+  "description": "Checks prices (including shipping) and outputs lowest price in a report",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "david.jones",
+  "license": "ISC",
+  "dependencies": {
+    "axiom": "^0.1.6",
+    "csv-parse": "^4.16.3",
+    "fast-csv": "^4.3.6",
+    "index.js": "0.0.3",
+    "jsdom": "^18.1.0"
+  }
+}
